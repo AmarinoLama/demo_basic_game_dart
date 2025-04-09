@@ -1,11 +1,11 @@
 import 'dart:async';
-
-import 'package:demo_basic_game/componets/background_tile.dart';
 import 'package:demo_basic_game/componets/collision_block.dart';
 import 'package:demo_basic_game/componets/player.dart';
 import 'package:demo_basic_game/pixel_adventure.dart';
 import 'package:flame/components.dart';
+import 'package:flame/parallax.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:flutter/cupertino.dart';
 
 class Level extends World with HasGameRef<PixelAdventure>{
   Level({required this.levelName, required this.player});
@@ -21,35 +21,11 @@ class Level extends World with HasGameRef<PixelAdventure>{
 
     add(level);
 
-    _scrollingBackground();
+    await _addParallaxBackground('Blue');
     _spawnObjects();
     _addCollisions();
 
     return super.onLoad();
-  }
-
-  void _scrollingBackground() {
-    final backgroundLayer = level.tileMap.getLayer('Background');
-    const tileSize = 64;
-
-    final numTilesY = (game.size.x / tileSize).floor();
-    final numTilesX = (game.size.y / tileSize).floor();
-
-    if (backgroundLayer != null) {
-      final backgroundColor = backgroundLayer.properties.getValue(
-        'BackgroundColor',
-      );
-
-      for (double y = 0; y < numTilesY; y++) {
-        for (double x = 0; x < numTilesX; x++) {
-          final backgroundTile = BackgroundTile(
-            color: backgroundColor ?? 'Gray',
-            position: Vector2(x * tileSize, y * tileSize - tileSize),
-          );
-          add(backgroundTile);
-        }
-      }
-    }
   }
 
   void _addCollisions() {
@@ -104,4 +80,18 @@ class Level extends World with HasGameRef<PixelAdventure>{
       }
     }
   }
+
+  Future<void> _addParallaxBackground(String color) async {
+    final parallax = await game.loadParallax(
+      [
+        ParallaxImageData('Background/$color.png'), // o el color que necesites
+      ],
+      baseVelocity: Vector2(40, 40), // scroll vertical
+      repeat: ImageRepeat.repeat,
+      fill: LayerFill.none,
+    );
+
+    add(ParallaxComponent(parallax: parallax)..priority = -1);
+  }
+
 }
