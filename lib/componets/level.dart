@@ -1,13 +1,17 @@
 import 'dart:async';
 import 'package:demo_basic_game/componets/collision_block.dart';
+import 'package:demo_basic_game/componets/fruit.dart';
 import 'package:demo_basic_game/componets/player.dart';
 import 'package:demo_basic_game/pixel_adventure.dart';
 import 'package:flame/components.dart';
 import 'package:flame/parallax.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:demo_basic_game/componets/saw.dart';
 
-class Level extends World with HasGameRef<PixelAdventure>{
+import 'checkpoint.dart';
+
+class Level extends World with HasGameRef<PixelAdventure> {
   Level({required this.levelName, required this.player});
 
   String levelName;
@@ -21,7 +25,7 @@ class Level extends World with HasGameRef<PixelAdventure>{
 
     add(level);
 
-    await _addParallaxBackground('Blue');
+    await _addParallaxBackground(color: 'Green');
     _spawnObjects();
     _addCollisions();
 
@@ -75,13 +79,41 @@ class Level extends World with HasGameRef<PixelAdventure>{
             player.position = Vector2(spawnPoint.x, spawnPoint.y);
             add(player);
             break;
+          case 'Fruit':
+            final fruit = Fruit(
+              fruit: spawnPoint.name,
+              position: Vector2(spawnPoint.x, spawnPoint.y),
+              size: Vector2(spawnPoint.width, spawnPoint.height),
+            );
+            add(fruit);
+            break;
+          case 'Saw':
+            final isVertical = spawnPoint.properties.getValue('isVertical');
+            final offNeg = spawnPoint.properties.getValue('offNeg');
+            final offPos = spawnPoint.properties.getValue('offPos');
+            final saw = Saw(
+              isVertical: isVertical,
+              offNeg: offNeg,
+              offPos: offPos,
+              position: Vector2(spawnPoint.x, spawnPoint.y),
+              size: Vector2(spawnPoint.width, spawnPoint.height),
+            );
+            add(saw);
+            break;
+          case 'Checkpoint':
+            final checkpoint = Checkpoint(
+              position: Vector2(spawnPoint.x, spawnPoint.y),
+              size: Vector2(spawnPoint.width, spawnPoint.height),
+            );
+            add(checkpoint);
+          break;
           default:
         }
       }
     }
   }
 
-  Future<void> _addParallaxBackground(String color) async {
+  Future<void> _addParallaxBackground({String color = 'Gray'}) async {
     final parallax = await game.loadParallax(
       [
         ParallaxImageData('Background/$color.png'), // o el color que necesites
@@ -93,5 +125,4 @@ class Level extends World with HasGameRef<PixelAdventure>{
 
     add(ParallaxComponent(parallax: parallax)..priority = -1);
   }
-
 }
