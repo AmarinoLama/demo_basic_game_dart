@@ -28,6 +28,7 @@ class Player extends SpriteAnimationGroupComponent
   double moveSpeed = 100;
   Vector2 velocity = Vector2.zero();
   bool isOnground = false;
+  bool isOnSand = false;
   bool hasJumped = false;
   List<CollisionBlock> collisionBlocks = [];
   PlayerHitbox hitbox = PlayerHitbox(
@@ -55,6 +56,7 @@ class Player extends SpriteAnimationGroupComponent
     _checkHorizontalCollision();
     _applyGravity(dt);
     _checkVerticalCollision();
+    priority = isOnSand ? -1 : 1;
     super.update(dt);
   }
 
@@ -184,6 +186,8 @@ class Player extends SpriteAnimationGroupComponent
             moveSpeed = 0;
             _jumpForce = 0;
           }
+          isOnSand = true;
+          break;
         }
       } else {
         if (checkCollision(this, block)) {

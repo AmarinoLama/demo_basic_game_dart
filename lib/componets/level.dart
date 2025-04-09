@@ -32,17 +32,23 @@ class Level extends World with HasGameRef<PixelAdventure>{
     final backgroundLayer = level.tileMap.getLayer('Background');
     const tileSize = 64;
 
-    final numTilesY = (game.size.x / tileSize);
+    final numTilesY = (game.size.x / tileSize).floor();
+    final numTilesX = (game.size.y / tileSize).floor();
 
     if (backgroundLayer != null) {
       final backgroundColor = backgroundLayer.properties.getValue(
         'BackgroundColor',
       );
-      final backgroundTile = BackgroundTile(
-        color: backgroundColor ?? 'Gray',
-        position: Vector2(0, 0)
-      );
-      add(backgroundTile);
+
+      for (double y = 0; y < numTilesY; y++) {
+        for (double x = 0; x < numTilesX; x++) {
+          final backgroundTile = BackgroundTile(
+            color: backgroundColor ?? 'Gray',
+            position: Vector2(x * tileSize, y * tileSize - tileSize),
+          );
+          add(backgroundTile);
+        }
+      }
     }
   }
 
@@ -57,7 +63,7 @@ class Level extends World with HasGameRef<PixelAdventure>{
               position: Vector2(collision.x, collision.y),
               size: Vector2(collision.width, collision.height),
               isPlatform: true,
-            );
+            )..priority = 1;
             collisionBlocks.add(platform);
             add(platform);
             break;

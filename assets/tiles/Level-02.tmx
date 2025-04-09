@@ -32,7 +32,7 @@
 </data>
  </layer>
  <objectgroup id="3" name="Spawnpoints">
-  <object id="1" name="Player" type="Player" x="360.727" y="250.659" width="32" height="32"/>
+  <object id="1" name="Player" type="Player" x="294.817" y="92.5915" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="4" name="Collisions">
   <object id="6" x="32" y="32" width="16" height="288"/>
