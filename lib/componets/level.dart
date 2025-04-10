@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:demo_basic_game/componets/background_tile.dart';
 import 'package:demo_basic_game/componets/collision_block.dart';
 import 'package:demo_basic_game/componets/fruit.dart';
 import 'package:demo_basic_game/componets/player.dart';
@@ -25,7 +26,7 @@ class Level extends World with HasGameRef<PixelAdventure> {
 
     add(level);
 
-    await _addParallaxBackground(color: 'Green');
+    _scrollingBackground();
     _spawnObjects();
     _addCollisions();
 
@@ -48,13 +49,13 @@ class Level extends World with HasGameRef<PixelAdventure> {
             add(platform);
             break;
           case 'Sand':
-            final platform = CollisionBlock(
+            final sand = CollisionBlock(
               position: Vector2(collision.x, collision.y),
               size: Vector2(collision.width, collision.height),
               isSand: true,
             );
-            collisionBlocks.add(platform);
-            add(platform);
+            collisionBlocks.add(sand);
+            add(sand);
             break;
           default:
             final block = CollisionBlock(
@@ -77,6 +78,8 @@ class Level extends World with HasGameRef<PixelAdventure> {
         switch (spawnPoint.class_) {
           case 'Player':
             player.position = Vector2(spawnPoint.x, spawnPoint.y);
+            player.startingPosition = Vector2(spawnPoint.x, spawnPoint.y);
+            player.scale.x = 1;
             add(player);
             break;
           case 'Fruit':
@@ -113,16 +116,15 @@ class Level extends World with HasGameRef<PixelAdventure> {
     }
   }
 
-  Future<void> _addParallaxBackground({String color = 'Gray'}) async {
-    final parallax = await game.loadParallax(
-      [
-        ParallaxImageData('Background/$color.png'), // o el color que necesites
-      ],
-      baseVelocity: Vector2(40, 40), // scroll vertical
-      repeat: ImageRepeat.repeat,
-      fill: LayerFill.none,
-    );
-
-    add(ParallaxComponent(parallax: parallax)..priority = -1);
+  void _scrollingBackground() {
+    final backgroundLayer = level.tileMap.getLayer('Background');
+    if (backgroundLayer != null) {
+      final backgroundColor = backgroundLayer.properties.getValue('BackgroundColor');
+      final backgroundTile = BackgroundTile(
+        color: backgroundColor ?? 'Gray',
+        position: Vector2(0, 0),
+      );
+      add(backgroundTile);
+    }
   }
 }

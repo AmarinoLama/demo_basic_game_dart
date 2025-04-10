@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="PixelAdventure.tsx"/>
  <layer id="1" name="Background" width="40" height="23">
   <properties>
-   <property name="BackgroundColor" value="Gray"/>
+   <property name="BackgroundColor" value="Green"/>
   </properties>
   <data encoding="csv">
 24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,
@@ -58,7 +58,7 @@
    <properties>
     <property name="isVertical" type="bool" value="false"/>
     <property name="offNeg" type="float" value="0"/>
-    <property name="offPos" type="float" value="18.5"/>
+    <property name="offPos" type="float" value="15"/>
    </properties>
   </object>
   <object id="72" type="Saw" x="192" y="96" width="32" height="32">
@@ -77,7 +77,7 @@
   </object>
   <object id="74" type="Checkpoint" x="96" y="176" width="64" height="64"/>
  </objectgroup>
- <objectgroup id="4" name="Collisions">
+ <objectgroup id="4" name="Collisions" visible="0">
   <object id="6" x="32" y="32" width="16" height="288"/>
   <object id="7" x="48" y="304" width="560" height="16"/>
   <object id="8" x="592" y="32" width="16" height="272"/>
