@@ -1,14 +1,15 @@
 import 'dart:async';
 import 'package:demo_basic_game/componets/background_tile.dart';
 import 'package:demo_basic_game/componets/collision_block.dart';
-import 'package:demo_basic_game/componets/fruit.dart';
-import 'package:demo_basic_game/componets/player.dart';
+import 'package:demo_basic_game/componets/entities/fruit.dart';
+import 'package:demo_basic_game/componets/entities/player.dart';
 import 'package:demo_basic_game/pixel_adventure.dart';
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:demo_basic_game/componets/saw.dart';
-import 'checkpoint.dart';
-import 'chicken.dart';
+import 'package:demo_basic_game/componets/entities/saw.dart';
+import 'blocks/moving_block.dart';
+import 'entities/checkpoint.dart';
+import 'entities/enemies/chicken.dart';
 
 class Level extends World with HasGameRef<PixelAdventure> {
   Level({required this.levelName, required this.player});
@@ -54,6 +55,16 @@ class Level extends World with HasGameRef<PixelAdventure> {
             );
             collisionBlocks.add(sand);
             add(sand);
+            break;
+          case 'movingBlock':
+            final movingBlock = MovingBlock(
+              position: Vector2(collision.x, collision.y),
+              size: Vector2(collision.width, collision.height),
+              offNeg: collision.properties.getValue('offNeg'),
+              offPos: collision.properties.getValue('offPos'),
+            );
+            collisionBlocks.add(movingBlock);
+            add(movingBlock);
             break;
           default:
             final block = CollisionBlock(
@@ -117,6 +128,15 @@ class Level extends World with HasGameRef<PixelAdventure> {
             );
             add(chicken);
             break;
+          /*case 'Rockhead':
+            final rockhead = Rockhead(
+              position: Vector2(spawnPoint.x, spawnPoint.y),
+              size: Vector2(spawnPoint.width, spawnPoint.height),
+              offNeg: spawnPoint.properties.getValue('offNeg'),
+              offPos: spawnPoint.properties.getValue('offPos'),
+            );
+            add(rockhead);
+            break;*/
           default:
         }
       }

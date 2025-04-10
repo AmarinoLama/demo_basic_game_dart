@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:demo_basic_game/componets/player.dart';
+import 'package:demo_basic_game/componets/entities/player.dart';
 import 'package:demo_basic_game/pixel_adventure.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';

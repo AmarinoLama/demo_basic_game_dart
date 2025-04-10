@@ -71,6 +71,8 @@ flutter:
     - assets/images/Items/Fruits/
     - assets/images/Items/Checkpoints/Checkpoint/
     - assets/images/Traps/Saw/
+    - assets/images/Traps/Trampoline/
+    - assets/images/Traps/Rock Head/
     - assets/images/Main Characters/
     - assets/images/Main Characters/Mask Dude/
     - assets/images/Main Characters/Ninja Frog/

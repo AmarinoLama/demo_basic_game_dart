@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:demo_basic_game/componets/chicken.dart';
+import 'package:demo_basic_game/componets/entities/enemies/chicken.dart';
 import 'package:demo_basic_game/componets/collision_block.dart';
 import 'package:demo_basic_game/componets/custom_hitbox.dart';
-import 'package:demo_basic_game/componets/fruit.dart';
+import 'package:demo_basic_game/componets/entities/fruit.dart';
 import 'package:demo_basic_game/componets/utils.dart';
-import 'package:demo_basic_game/componets/saw.dart';
-import 'package:demo_basic_game/componets/checkpoint.dart';
+import 'package:demo_basic_game/componets/entities/saw.dart';
+import 'package:demo_basic_game/componets/entities/checkpoint.dart';
 import 'package:demo_basic_game/pixel_adventure.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';

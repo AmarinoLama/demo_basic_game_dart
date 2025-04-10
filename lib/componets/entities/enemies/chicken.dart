@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:demo_basic_game/componets/player.dart';
+import 'package:demo_basic_game/componets/entities/player.dart';
 import 'package:demo_basic_game/pixel_adventure.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/flame.dart';
 import 'package:flame_audio/flame_audio.dart';
 
 enum State {
@@ -47,7 +46,7 @@ class Chicken extends SpriteAnimationGroupComponent
       size: Vector2(24, 26),
     ));
     _loadAllAnimations();
-    _calculateRage();
+    _calculateRange();
     return super.onLoad();
   }
 
@@ -82,7 +81,7 @@ class Chicken extends SpriteAnimationGroupComponent
             amount: amount, stepTime: stepTime, textureSize: textureSize));
   }
 
-  void _calculateRage() {
+  void _calculateRange() {
     rangeNeg = position.x - offNeg * tileSize;
     rangePos = position.x + offPos * tileSize;
   }

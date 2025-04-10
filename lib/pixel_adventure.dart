@@ -8,7 +8,7 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
-import 'componets/player.dart';
+import 'componets/entities/player.dart';
 
 class PixelAdventure extends FlameGame
     with HasKeyboardHandlerComponents, DragCallbacks, HasCollisionDetection, TapCallbacks {
@@ -19,10 +19,12 @@ class PixelAdventure extends FlameGame
   late JoystickComponent joystick;
   Player player = Player();
   bool showMovileControls = false;
-  bool playSounds = false;
+  bool playSounds = true;
   double soundVolume = 1.0;
-  List<String> levelNames = ['Level-01', 'Level-02'];
-  int currentLevelIndex = 0;
+  List<String> levelNames = ['Level-01', 'Level-02', 'Level-03'];
+
+  // ESTO ESTÁ SIENDO TESTEADO
+  int currentLevelIndex = 2;
 
   @override
   FutureOr<void> onLoad() async {
