@@ -5,12 +5,10 @@ import 'package:demo_basic_game/componets/fruit.dart';
 import 'package:demo_basic_game/componets/player.dart';
 import 'package:demo_basic_game/pixel_adventure.dart';
 import 'package:flame/components.dart';
-import 'package:flame/parallax.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:demo_basic_game/componets/saw.dart';
-
 import 'checkpoint.dart';
+import 'chicken.dart';
 
 class Level extends World with HasGameRef<PixelAdventure> {
   Level({required this.levelName, required this.player});
@@ -109,7 +107,16 @@ class Level extends World with HasGameRef<PixelAdventure> {
               size: Vector2(spawnPoint.width, spawnPoint.height),
             );
             add(checkpoint);
-          break;
+            break;
+          case 'Chicken':
+            final chicken = Chicken(
+              position: Vector2(spawnPoint.x, spawnPoint.y),
+              size: Vector2(spawnPoint.width, spawnPoint.height),
+              offNeg: spawnPoint.properties.getValue('offNeg'),
+              offPos: spawnPoint.properties.getValue('offPos'),
+            );
+            add(chicken);
+            break;
           default:
         }
       }
@@ -119,7 +126,9 @@ class Level extends World with HasGameRef<PixelAdventure> {
   void _scrollingBackground() {
     final backgroundLayer = level.tileMap.getLayer('Background');
     if (backgroundLayer != null) {
-      final backgroundColor = backgroundLayer.properties.getValue('BackgroundColor');
+      final backgroundColor = backgroundLayer.properties.getValue(
+        'BackgroundColor',
+      );
       final backgroundTile = BackgroundTile(
         color: backgroundColor ?? 'Gray',
         position: Vector2(0, 0),

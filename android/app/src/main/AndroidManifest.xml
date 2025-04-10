@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="demo_basic_game"
+        android:label="Pixel Adventure"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

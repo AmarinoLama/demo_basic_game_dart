@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:demo_basic_game/componets/chicken.dart';
 import 'package:demo_basic_game/componets/collision_block.dart';
 import 'package:demo_basic_game/componets/custom_hitbox.dart';
 import 'package:demo_basic_game/componets/fruit.dart';
@@ -40,6 +41,7 @@ class Player extends SpriteAnimationGroupComponent
   bool isOnSand = false;
   bool hasJumped = false;
   bool gotHit = false;
+  bool isRespawning = false;
   bool reachedCheckpoint = false;
   List<CollisionBlock> collisionBlocks = [];
   CustomHitbox hitbox = CustomHitbox(
@@ -121,6 +123,7 @@ class Player extends SpriteAnimationGroupComponent
       if (other is Fruit) other.collidedWithPlayer();
       if (other is Saw) _respawn();
       if (other is Checkpoint) _reachedCheckpoint();
+      if (other is Chicken) other.colliedWithPlayer();
     }
     super.onCollisionStart(intersectionPoints, other);
   }
@@ -273,6 +276,10 @@ class Player extends SpriteAnimationGroupComponent
   }
 
   void _respawn() async {
+
+    if(isRespawning) return;
+    isRespawning = true;
+
     if (game.playSounds)
       FlameAudio.play('hitHurt.wav', volume: game.soundVolume);
 
@@ -298,6 +305,7 @@ class Player extends SpriteAnimationGroupComponent
 
     moveSpeed = 100;
     _jumpForce = 260;
+    isRespawning = false;
   }
 
   void _reachedCheckpoint() async {
@@ -319,5 +327,13 @@ class Player extends SpriteAnimationGroupComponent
 
     const waitToChangeDuration = Duration(seconds: 3);
     Future.delayed(waitToChangeDuration, () => game.loadNextLevel());
+  }
+
+  void colliedWithEnemy() {
+    if (game.playSounds) FlameAudio.play('hitHurt.wav', volume: game.soundVolume);
+    gotHit = true;
+    current = PlayerState.hit;
+
+    _respawn();
   }
 }
