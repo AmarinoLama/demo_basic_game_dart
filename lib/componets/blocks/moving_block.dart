@@ -57,6 +57,17 @@ class MovingBlock extends CollisionBlock
         pushDirection = -1; // empujado hacia la izquierda
       }
     }
+    if (other is CollisionBlock) {
+      print("colisionando con el bloque");
+      final playerMid = other.position.x + other.size.x / 2;
+      final blockMid = position.x + size.x / 2;
+
+      if (playerMid < blockMid) {
+        pushDirection = 1; // empujado hacia la derecha
+      } else {
+        pushDirection = -1; // empujado hacia la izquierda
+      }
+    }
     super.onCollision(intersectionPoints, other);
   }
 
