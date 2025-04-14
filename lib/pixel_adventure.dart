@@ -38,7 +38,7 @@ class PixelAdventure extends FlameGame
     // Cargar todas las imágenes en caché
     await images.loadAllImages();
 
-    await _loadLevel();
+    _loadLevel();
 
     if (showMovileControls) {
       if (!children.any((component) => component is JoystickComponent)) {
@@ -106,7 +106,7 @@ class PixelAdventure extends FlameGame
     }
   }
 
-  Future<void> _loadLevel() async {
+  void _loadLevel() {
     final world = Level(
       levelName: levelNames[currentLevelIndex],
       player: player,
