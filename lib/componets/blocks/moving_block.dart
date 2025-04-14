@@ -48,24 +48,17 @@ class MovingBlock extends CollisionBlock
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player) {
+      // Detectar colisión con el jugador
       final playerMid = other.position.x + other.size.x / 2;
       final blockMid = position.x + size.x / 2;
 
-      if (playerMid < blockMid && player.isOnground) {
-        pushDirection = 1; // empujado hacia la derecha
-      } else {
-        pushDirection = -1; // empujado hacia la izquierda
-      }
-    }
-    if (other is CollisionBlock) {
-      print("colisionando con el bloque");
-      final playerMid = other.position.x + other.size.x / 2;
-      final blockMid = position.x + size.x / 2;
+      final bool isPlayerOnBlock = player.y + player.height > position.y && player.y < position.y + size.y;
 
-      if (playerMid < blockMid) {
-        pushDirection = 1; // empujado hacia la derecha
-      } else {
-        pushDirection = -1; // empujado hacia la izquierda
+      // Determinar la dirección del empuje
+      if (playerMid < blockMid && isPlayerOnBlock) {
+        pushDirection = 1; // Empujar hacia la derecha
+      } else if (playerMid > blockMid && isPlayerOnBlock) {
+        pushDirection = -1; // Empujar hacia la izquierda
       }
     }
     super.onCollision(intersectionPoints, other);
@@ -74,7 +67,7 @@ class MovingBlock extends CollisionBlock
   @override
   void onCollisionEnd(PositionComponent other) {
     if (other is Player) {
-      pushDirection = 0; // dejar de moverse al terminar la colisión
+      pushDirection = 0; // Detener el movimiento al terminar la colisión
     }
     super.onCollisionEnd(other);
   }
