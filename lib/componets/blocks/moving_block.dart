@@ -47,6 +47,7 @@ class MovingBlock extends CollisionBlock
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+
     if (other is Player) {
       // Detectar colisión con el jugador
       final playerMid = other.position.x + other.size.x / 2;
@@ -60,6 +61,9 @@ class MovingBlock extends CollisionBlock
       } else if (playerMid > blockMid && isPlayerOnBlock) {
         pushDirection = -1; // Empujar hacia la izquierda
       }
+    } else{
+      // Si no es el jugador, detener el movimiento
+      print("Colisión detectada con otro CollisionBlock");
     }
     super.onCollision(intersectionPoints, other);
   }
