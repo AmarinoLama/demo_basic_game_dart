@@ -18,7 +18,7 @@ class PixelAdventure extends FlameGame
   late CameraComponent cam;
   late JoystickComponent joystick;
   Player player = Player();
-  bool showMovileControls = false;
+  bool showMovileControls = true;
   bool playSounds = true;
   double soundVolume = 1.0;
   List<String> levelNames = ['Level-01', 'Level-02', 'Level-03'];
@@ -38,11 +38,15 @@ class PixelAdventure extends FlameGame
     // Cargar todas las imágenes en caché
     await images.loadAllImages();
 
-    _loadLevel();
+    await _loadLevel();
 
     if (showMovileControls) {
-      addJoystick();
-      add(JumpButton());
+      if (!children.any((component) => component is JoystickComponent)) {
+        addJoystick();
+      }
+      if (!children.any((component) => component is JumpButton)) {
+        add(JumpButton());
+      }
     }
 
     return super.onLoad();
@@ -58,7 +62,7 @@ class PixelAdventure extends FlameGame
 
   void addJoystick() {
     joystick = JoystickComponent(
-      priority: 2,
+      priority: 15,
       knob: SpriteComponent(
         sprite: Sprite(images.fromCache('HUD/Knob.png')),
         size: Vector2.all(50),
@@ -102,7 +106,7 @@ class PixelAdventure extends FlameGame
     }
   }
 
-  void _loadLevel() {
+  Future<void> _loadLevel() async {
     final world = Level(
       levelName: levelNames[currentLevelIndex],
       player: player,
@@ -113,6 +117,7 @@ class PixelAdventure extends FlameGame
       width: 640,
       height: 360,
     );
+    cam.priority = 10;
     cam.viewfinder.anchor = Anchor.topLeft;
     addAll([cam, world]);
   }
