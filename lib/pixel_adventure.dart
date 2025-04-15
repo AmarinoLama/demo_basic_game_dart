@@ -30,6 +30,7 @@ class PixelAdventure extends FlameGame
   FutureOr<void> onLoad() async {
 
     showMovileControls = Platform.isIOS || Platform.isAndroid;
+    showMovileControls = true;
 
     // Cargar todas las imágenes en caché
     await images.loadAllImages();

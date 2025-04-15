@@ -3,11 +3,23 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Level-03.tmx",
+    "activeFile": "Level-01.tmx",
     "expandedProjectPaths": [
         "."
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "/Users/pumpundixital/IdeaProjects/pruebas_juego/assets/tiles/Level-01.tmx": {
+            "scale": 1.59125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 320.1885310290652,
+                "y": 183.8177533385703
+            }
+        },
+        "/Users/pumpundixital/IdeaProjects/pruebas_juego/assets/tiles/Pixel Adventure.tsx": {
+            "scaleInDock": 1
+        },
         "Level-01.tmx": {
             "expandedObjectLayers": [
                 3,
@@ -22,8 +34,8 @@
         },
         "Level-02.tmx": {
             "expandedObjectLayers": [
-                3,
-                4
+                4,
+                3
             ],
             "scale": 1.71,
             "selectedLayer": 0,
@@ -38,10 +50,10 @@
                 2
             ],
             "scale": 1.59421875,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 310.8105459178673,
-                "y": 174.06645104381067
+                "x": 301.4015485641478,
+                "y": 164.65745369009116
             }
         },
         "PixelAdventure.tsx": {
@@ -56,15 +68,19 @@
     "map.tileWidth": 16,
     "map.width": 40,
     "openFiles": [
-        "Level-03.tmx"
+        "Level-03.tmx",
+        "/Users/pumpundixital/IdeaProjects/pruebas_juego/assets/tiles/Level-01.tmx",
+        "Level-02.tmx",
+        "Level-01.tmx"
     ],
     "project": "PixelAdventure.tiled-project",
     "property.type": "float",
     "recentFiles": [
         "Level-03.tmx",
-        "PixelAdventure.tsx",
+        "/Users/pumpundixital/IdeaProjects/pruebas_juego/assets/tiles/Level-01.tmx",
+        "Level-02.tmx",
         "Level-01.tmx",
-        "Level-02.tmx"
+        "PixelAdventure.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
